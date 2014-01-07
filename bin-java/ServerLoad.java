@@ -1,15 +1,10 @@
 import javax.swing.*; import javax.swing.border.Border; 
-
-import java.awt.event.*; import java.awt.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
+import java.awt.event.*; import java.awt.*; import java.io.*; import java.util.Scanner;
 public class ServerLoad extends JFrame{
 	private static final long serialVersionUID = 1L;
 	public ServerLoad() {
 		super("Choose Server");
 		JPanel controlPanel = new JPanel( new GridLayout(6,1) );
-		controlPanel.setSize(900, 900);
 		Border gap = BorderFactory.createEmptyBorder(5,5,5,5);
 		controlPanel.setBorder(gap);
 		try {UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); }
@@ -56,34 +51,41 @@ public class ServerLoad extends JFrame{
 		JLabel Footer = new JLabel("AMD Gaming Server Client 1.0A");
 		controlPanel.add(Footer);
 		setContentPane(controlPanel);
-		
-		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); }
+	
 	private JButton buttonA, buttonB, buttonC, buttonD, buttonE;
+	public static String RunningConfiguration = "", ServerLaunchPath = "", ServerName = "";
+	public static boolean CommandsEnabled = false, ChoiceWindowRunning = true;
 	
 	private class ButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
-			String configChoice = "";
-			if (buttonA.isFocusOwner()) configChoice = "A";
-			if (buttonB.isFocusOwner()) configChoice = "B";
-			if (buttonC.isFocusOwner()) configChoice = "C";
-			if (buttonD.isFocusOwner()) configChoice = "D";
-			if (buttonE.isFocusOwner()) configChoice = "E";
-			File inFile = new File("ServerConfig" + configChoice + ".txt");
+			if (buttonA.isFocusOwner()) RunningConfiguration = "A";
+			if (buttonB.isFocusOwner()) RunningConfiguration = "B";
+			if (buttonC.isFocusOwner()) RunningConfiguration = "C";
+			if (buttonD.isFocusOwner()) RunningConfiguration = "D";
+			if (buttonE.isFocusOwner()) RunningConfiguration = "E";
+			File inFile = new File("ServerConfig" + RunningConfiguration + ".txt");
 			Scanner in = null;
 			try {in = new Scanner(inFile); }
 			catch (FileNotFoundException e) {e.printStackTrace(); }
-			System.out.print("--New Server--\n" + in.nextLine() + "\nLocation: " + in.nextLine() + "\nCommands Enabled: " + in.nextBoolean() + "\n");
+			ServerName = in.nextLine();
+			ServerLaunchPath = in.nextLine();
+			CommandsEnabled = in.nextBoolean();
 			in.close();
-			
-			} }
-
+			ChoiceWindowRunning = false;
+			OSD x = new OSD();
+			x.pack();
+			x.setVisible(true);
+			x.setResizable(false);
+			x.setSize(300, 300);
+			OSD.ServerIdle(x); } }
 	public static void main(String args[]) {
 		ServerLoad x = new ServerLoad();
 		x.pack();
 		x.setVisible(true);
 		x.setResizable(false);
 		x.setSize(300, 300);
-
-} }
+		while (ChoiceWindowRunning) {
+			try {Thread.sleep(500); }
+			catch (InterruptedException e) {e.printStackTrace();} }
+		x.dispose(); } }
