@@ -22,3 +22,15 @@ OS: Windows 7 Home Premium 64bit
 This program will eventually be able to load a specified server, and then monitor it, send e-mail or text messages of its status, run in eco-mode where the computer shuts down the server and hibernates at set times, be able to come out of eco-mode to perform other maintenance tasks, be able to switch servers on demand, and be remotely controllable. Also I will implement an applet for players to see if the server (and which server) is online at any time, and possibly even see who is playing on it (minecraft only.)
 
 It will eventually be coded with mainly Java, along with possibly C++, Batch, and AutoHotKey Scripts.
+
+===
+
+Progress Report:
+- Loads Servers                           No... because of broken code
+- Monitors Servers                        No
+- Sends Email/Text Notifications          Somewhat
+- Eco mode fully working                  Meh
+- Task Scheduler and hibernate/sleep      Not until I get the pc to test on
+- Maintenance Tasks                       No
+- Remote Controllable                     Not yet attempted but framework is laid out
+- Player Applet                           This will be the final step
