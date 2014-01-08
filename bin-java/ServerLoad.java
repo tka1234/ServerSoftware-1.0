@@ -1,5 +1,4 @@
-import javax.swing.*; import javax.swing.border.Border; 
-import java.awt.event.*; import java.awt.*; import java.io.*; import java.util.Scanner;
+import javax.swing.*; import javax.swing.border.Border; import java.awt.event.*; import java.awt.*; import java.io.*; import java.util.Scanner;
 public class ServerLoad extends JFrame{
 	private static final long serialVersionUID = 1L;
 	public ServerLoad() {
@@ -55,7 +54,7 @@ public class ServerLoad extends JFrame{
 	
 	private JButton buttonA, buttonB, buttonC, buttonD, buttonE;
 	public static String RunningConfiguration = "", ServerLaunchPath = "", ServerName = "";
-	public static boolean CommandsEnabled = false, ChoiceWindowRunning = true;
+	public static boolean CommandsEnabled = false, ChoiceMade = false;
 	
 	private class ButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
@@ -72,20 +71,4 @@ public class ServerLoad extends JFrame{
 			ServerLaunchPath = in.nextLine();
 			CommandsEnabled = in.nextBoolean();
 			in.close();
-			ChoiceWindowRunning = false;
-			OSD x = new OSD();
-			x.pack();
-			x.setVisible(true);
-			x.setResizable(false);
-			x.setSize(300, 300);
-			OSD.ServerIdle(x); } }
-	public static void main(String args[]) {
-		ServerLoad x = new ServerLoad();
-		x.pack();
-		x.setVisible(true);
-		x.setResizable(false);
-		x.setSize(300, 300);
-		while (ChoiceWindowRunning) {
-			try {Thread.sleep(500); }
-			catch (InterruptedException e) {e.printStackTrace();} }
-		x.dispose(); } }
+			ChoiceMade = true; } } }
