@@ -87,19 +87,29 @@ public class TimeSchedule extends JFrame {
 				ServerOn = onTime.getValue();
 				ServerOff = offTime.getValue();
 				MaintTime = mTime.getValue();
-				//save to a file.
+				File inFile = new File("EcoSched.txt");
+				PrintWriter out = null;
+				try {out = new PrintWriter(inFile);}
+				catch (FileNotFoundException e) {e.printStackTrace(); }
+				out.println(ServerOn);
+				out.println(ServerOff);
+				out.println(MaintTime);
+				out.close();
 				dispose(); }
 			if (enableButton.isFocusOwner()) {
 				ServerOn = onTime.getValue();
 				ServerOff = offTime.getValue();
 				MaintTime = mTime.getValue();
-				//save to a file.
-				if (MaintTime - CurrentMilitaryTime() > ServerOn - CurrentMilitaryTime() && MaintTime - CurrentMilitaryTime() > ServerOff - CurrentMilitaryTime()) CurrentCycle = 1;
-				if (ServerOn - CurrentMilitaryTime() > MaintTime - CurrentMilitaryTime() && ServerOn - CurrentMilitaryTime() > ServerOff - CurrentMilitaryTime()) CurrentCycle = 2;
-				if (ServerOff - CurrentMilitaryTime() > MaintTime - CurrentMilitaryTime() && ServerOff - CurrentMilitaryTime() > ServerOn - CurrentMilitaryTime()) CurrentCycle = 3;
+				File inFile = new File("EcoSched.txt");
+				PrintWriter out = null;
+				try {out = new PrintWriter(inFile);}
+				catch (FileNotFoundException e) {e.printStackTrace(); }
+				out.println(ServerOn);
+				out.println(ServerOff);
+				out.println(MaintTime);
+				out.close();
 				EcoMode = true;
-				dispose();
-			} } }
+				dispose(); } } }
 	
 	private class OnSliderListener implements ChangeListener {
 		public void stateChanged(ChangeEvent event) {
@@ -149,7 +159,7 @@ public class TimeSchedule extends JFrame {
 		}
 	}
 	
-	public static int ServerOn, ServerOff, MaintTime, CurrentCycle;
+	public static int ServerOn, ServerOff, MaintTime;
 	public static boolean EcoMode = false;
 	
 	public static void ReadEcoTimes() {
@@ -161,8 +171,19 @@ public class TimeSchedule extends JFrame {
 		ServerOff = in.nextInt();
 		MaintTime = in.nextInt();
 		in.close(); }
-	public static String TimeStamp() {return "-" + Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + ":" + Calendar.getInstance().get(Calendar.MINUTE) + "-"; }
+	public static double TimeUntil(int time) {
+		double tm = (time / 100) - CurrentHour();
+		if (tm < 0) tm = 24 - CurrentHour() + (time/100);
+		double fail = Calendar.getInstance().get(Calendar.MINUTE);
+		fail = fail / 60;
+		tm = tm - fail;
+		return tm; }
+	public static double TimeBetween(int time1, int time2) {
+		double tm = (time2 / 100) - (time1 / 100);
+		if (tm < 0) tm = 24 - (time1 / 100) + (time2 / 100);
+		return tm; }
 	
+	public static String TimeStamp() {return "-" + Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + ":" + Calendar.getInstance().get(Calendar.MINUTE) + "-"; }
 	public static int CurrentMilitaryTime() {return (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) * 100) + Calendar.getInstance().get(Calendar.MINUTE); }
 	public static int CurrentHour() {return Calendar.getInstance().get(Calendar.HOUR_OF_DAY); }
 	public static int CurrentMinute() {return Calendar.getInstance().get(Calendar.MINUTE); }
