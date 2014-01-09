@@ -9,13 +9,13 @@ CPU: AMD A6-5400K 3.6GHz Dual-Core Processor
 
 Motherboard: MSI FM2-A75IA-E53 Mini ITX
 
-RAM: Corsair Vengeance 4GB DDR3-1600
+RAM: Corsair Vengeance 4GB DDR3-1600 (Obtained!)
 
-HDD: Seagate Barracuda 500GB 7200RPM
+HDD: Seagate Barracuda 500GB 7200RPM (Obtained!)
 
-Case: Rosewill V3Plus-B Mini ITX Tower Case, 4x NMB 40mm fans + 3.5" Fan Controller
+Case: Rosewill V3Plus-B Mini ITX Tower Case, 4x NMB 40mm fans + 3.5" Fan Controller (Obtained! - fans)
 
-OS: Windows 7 Home Premium 64bit
+OS: Windows 7 Home Premium 64bit (Key obtained!)
 
 ===
 
@@ -26,11 +26,12 @@ It will eventually be coded with mainly Java, along with possibly C++, Batch, an
 ===
 
 Progress Report:
-- Loads Servers                           No... because of broken code
-- Monitors Servers                        No
-- Sends Email/Text Notifications          Somewhat
-- Eco mode fully working                  Meh
-- Task Scheduler and hibernate/sleep      Not until I get the pc to test on
-- Maintenance Tasks                       No
-- Remote Controllable                     Not yet attempted but framework is laid out
-- Player Applet                           This will be the final step
+- Loads Servers: No, because of broken code I found online.
+- Monitors Servers: No, can't do AHK until I get the server (and screen size).
+- Sends Email/Text Notifications: Fully capable but not fully implemented.
+- Eco mode fully working: Has some problems detecting half hour times and times close to current.
+- Task Scheduler and hibernate/sleep: Not until I get AHK and the Server itself.
+- Maintenance Tasks: Not until I get the Server itself.
+- Remote Controllable: That's going to be interesting.
+- Player Applet: Final thing to do, least priority right now. 
+- Make this a knockoff of Steam, with 100% more Hats: #1 Goal
