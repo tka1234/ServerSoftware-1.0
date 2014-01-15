@@ -183,7 +183,7 @@ public class TimeSchedule extends JFrame {
 		if (tm < 0) tm = 24 - (time1 / 100) + (time2 / 100);
 		return tm; }
 	
-	public static String TimeStamp() {return "-" + Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + ":" + Calendar.getInstance().get(Calendar.MINUTE) + "-"; }
+	public static String TimeStamp() {return "*" + Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + ":" + Calendar.getInstance().get(Calendar.MINUTE) + "*"; }
 	public static int CurrentMilitaryTime() {return (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) * 100) + Calendar.getInstance().get(Calendar.MINUTE); }
 	public static int CurrentHour() {return Calendar.getInstance().get(Calendar.HOUR_OF_DAY); }
 	public static int CurrentMinute() {return Calendar.getInstance().get(Calendar.MINUTE); }
