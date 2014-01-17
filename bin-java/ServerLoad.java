@@ -1,16 +1,13 @@
 import javax.swing.*; import javax.swing.border.Border; import java.awt.event.*; import java.awt.*; import java.io.*; import java.util.Scanner;
-public class ServerLoad extends JFrame{
+public class ServerLoad extends JFrame {
 	private static final long serialVersionUID = 1L;
 	public ServerLoad() {
-		super("Choose Server");
+		super("AGS - Choose Server");
 		JPanel controlPanel = new JPanel( new GridLayout(6,1) );
 		Border gap = BorderFactory.createEmptyBorder(5,5,5,5);
 		controlPanel.setBorder(gap);
 		try {UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); }
-		catch (ClassNotFoundException e) {e.printStackTrace(); }
-		catch (InstantiationException e) {e.printStackTrace(); }
-		catch (IllegalAccessException e) {e.printStackTrace(); }
-		catch (UnsupportedLookAndFeelException e) {e.printStackTrace(); }
+		catch (Exception e) {e.printStackTrace(); }
 		File inFile; Scanner in = null;
 		inFile = new File("ServerConfigA.txt");
 		try {in = new Scanner(inFile); }
@@ -47,7 +44,7 @@ public class ServerLoad extends JFrame{
 		buttonE.addActionListener(new ButtonListener());
 		controlPanel.add(buttonE);
 		in.close();
-		JLabel Footer = new JLabel("AMD Gaming Server Client 1.0A");
+		JLabel Footer = new JLabel("AGS Client 1.0A for Java 1.6");
 		controlPanel.add(Footer);
 		setContentPane(controlPanel);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); }
@@ -71,4 +68,15 @@ public class ServerLoad extends JFrame{
 			ServerLaunchPath = in.nextLine();
 			CommandsEnabled = in.nextBoolean();
 			in.close();
+			
+			ConfigCreator x = new ConfigCreator();
+			x.pack();
+			x.setVisible(true);
+			x.setResizable(false);
+			x.setSize(400, 150);
+			while (!x.TriggeredDisposal) {
+				try {Thread.sleep(500); }
+				catch (InterruptedException e) {e.printStackTrace(); } }
+			x.dispose();
+			
 			ChoiceMade = true; } } }
