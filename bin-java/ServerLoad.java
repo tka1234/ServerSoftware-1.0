@@ -69,7 +69,7 @@ public class ServerLoad extends JFrame {
 			CommandsEnabled = in.nextBoolean();
 			in.close();
 			
-			ConfigCreator x = new ConfigCreator();
+			/*ConfigCreator x = new ConfigCreator();
 			x.pack();
 			x.setVisible(true);
 			x.setResizable(false);
@@ -77,6 +77,6 @@ public class ServerLoad extends JFrame {
 			while (!x.TriggeredDisposal) {
 				try {Thread.sleep(500); }
 				catch (InterruptedException e) {e.printStackTrace(); } }
-			x.dispose();
+			x.dispose();*/
 			
 			ChoiceMade = true; } } }
