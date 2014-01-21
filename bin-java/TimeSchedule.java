@@ -1,9 +1,4 @@
-import javax.swing.*; import javax.swing.border.Border; 
-import java.awt.*; import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.event.*; 
-import java.io.*; import java.util.*;
+import javax.swing.*; import javax.swing.border.Border; import java.awt.*; import java.awt.event.*; import javax.swing.event.*; import java.io.*; import java.util.*;
 public class TimeSchedule extends JFrame {
 	private static final long serialVersionUID = 1L;
 	public TimeSchedule() {
@@ -22,8 +17,7 @@ public class TimeSchedule extends JFrame {
 		onTime.setMajorTickSpacing(50);
 		onTime.addChangeListener(new OnSliderListener());
 		onTime.setPaintTicks(true);
-		onTime.setSnapToTicks(true);
-		onTime.setPreferredSize(new Dimension(200, 100));
+		onTime.setSnapToTicks(false);
 		Panel1.add(onTime);
 		onTimeLabel = new JLabel("Turn On @: " + ServerOn);
 		onTimeLabel.setIcon(new ImageIcon("PWR.png"));
@@ -35,7 +29,7 @@ public class TimeSchedule extends JFrame {
 		offTime.setMajorTickSpacing(50);
 		offTime.addChangeListener(new OffSliderListener());
 		offTime.setPaintTicks(true);
-		offTime.setSnapToTicks(true);
+		offTime.setSnapToTicks(false);
 		Panel2.add(offTime);
 		offTimeLabel = new JLabel("Turn Off @: " + ServerOff);
 		offTimeLabel.setIcon(new ImageIcon("HIBER.png"));
@@ -47,7 +41,7 @@ public class TimeSchedule extends JFrame {
 		mTime.setMajorTickSpacing(50);
 		mTime.addChangeListener(new mSliderListener());
 		mTime.setPaintTicks(true);
-		mTime.setSnapToTicks(true);
+		mTime.setSnapToTicks(false);
 		mTime.setSize(200, 64);
 		Panel3.add(mTime);
 		mTimeLabel = new JLabel("Maintenance @: " + MaintTime);
@@ -171,20 +165,30 @@ public class TimeSchedule extends JFrame {
 		ServerOff = in.nextInt();
 		MaintTime = in.nextInt();
 		in.close(); }
-	public static double TimeUntil(int time) {
-		double tm = (time / 100) - CurrentHour();
-		if (tm < 0) tm = 24 - CurrentHour() + (time/100);
-		double fail = Calendar.getInstance().get(Calendar.MINUTE);
-		fail = fail / 60;
-		tm = tm - fail;
-		return tm; }
-	public static double TimeBetween(int time1, int time2) {
-		double tm = (time2 / 100) - (time1 / 100);
-		if (tm < 0) tm = 24 - (time1 / 100) + (time2 / 100);
-		return tm; }
+	
+	/** DeltaTimes(int start, int end): uses two Universal Time Formatting numbers and calculates the difference in Universal Time Formatting.**/
+	public static double DeltaTimes(int start, int end) {
+		if (end == start) return 0;
+		else if (end > start) {
+			int hrsDiff = (int) (Math.floor(end / 100) - Math.floor(start / 100));
+			int minDiff = (int) ((end - (Math.floor(end / 100) * 100)) - (start - (Math.floor(start / 100) * 100)));
+			if (minDiff < 0) {hrsDiff = hrsDiff - 1; minDiff = 60 + minDiff; }
+			return (hrsDiff * 100) + minDiff; }
+		else if (end < start) {
+			int hrsDiff = (int) (24 - Math.floor(start / 100) + Math.floor(end / 100));
+			int minDiff = (int) ((end - (Math.floor(end / 100) * 100)) - (start - (Math.floor(start / 100) * 100)));
+			if (minDiff < 0) {hrsDiff = hrsDiff - 1; minDiff = 60 + minDiff; }
+			return (hrsDiff * 100) + minDiff; }
+		else return -999; }
 	
 	public static String TimeStamp() {return "*" + Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + ":" + Calendar.getInstance().get(Calendar.MINUTE) + "*"; }
 	public static int CurrentMilitaryTime() {return (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) * 100) + Calendar.getInstance().get(Calendar.MINUTE); }
 	public static int CurrentHour() {return Calendar.getInstance().get(Calendar.HOUR_OF_DAY); }
 	public static int CurrentMinute() {return Calendar.getInstance().get(Calendar.MINUTE); }
+	
+	public static int CurrentDate() {return (Calendar.getInstance().get(Calendar.MONTH) * 100) + Calendar.getInstance().get(Calendar.DAY_OF_MONTH); }
+	
+	public static void main(String args[]) {
+		System.out.println((int) DeltaTimes(1420, 1320));
+	}
 }
