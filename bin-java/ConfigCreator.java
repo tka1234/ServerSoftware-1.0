@@ -1,4 +1,3 @@
-//Creates a GUI to edit/create up to 5 ServerLoad-ServerMain profiles.
 import javax.swing.*; import javax.swing.border.Border; import java.awt.event.*; import java.awt.*; import java.io.*;
 public class ConfigCreator extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -41,10 +40,7 @@ public class ConfigCreator extends JFrame {
 		controlPanel.add(panel4);
 		setContentPane(controlPanel);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		TriggeredDisposal = false;
-		System.out.println("I have no idea what i'm doing");
-		
-	}
+		TriggeredDisposal = false; }
 	
 	public boolean TriggeredDisposal;
 	private JTextField nameBox, pathBox;
@@ -68,16 +64,10 @@ public class ConfigCreator extends JFrame {
 				if (commandsSwitch.getText() == "Commands On") out.println("true");
 				else out.println("false");
 				out.close();
-				TriggeredDisposal = true;
-			}
-		}
-	}
-	
+				TriggeredDisposal = true; } } }
 	public static void main(String args[]) {
 		ConfigCreator x = new ConfigCreator();
 		x.pack();
 		x.setVisible(true);
 		x.setResizable(false);
-		x.setSize(400, 150);
-	}
-}
+		x.setSize(400, 150); } }
