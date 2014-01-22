@@ -52,7 +52,7 @@ public class ServerMain {
 			if (OSD.ActionButtonPressed == "B") {
 				//TODO account for restart and changing running profile.
 				OSD.ActionButtonPressed = "";
-				System.out.println("LElelelelellle"); }
+				System.out.println("Not yet implemented"); }
 			if (OSD.ActionButtonPressed == "C" && TimeSchedule.EcoMode) {
 				TimeSchedule.EcoMode = false;
 				EcoModeSegment = 0;
@@ -72,13 +72,13 @@ public class ServerMain {
 				TimeUntilOff = TimeSchedule.DeltaTimes(TimeSchedule.CurrentMilitaryTime(), TimeSchedule.ServerOff);
 				TimeUntilMaint = TimeSchedule.DeltaTimes(TimeSchedule.CurrentMilitaryTime(), TimeSchedule.MaintTime);
 				if (TimeUntilOn < TimeUntilOff && TimeUntilOn < TimeUntilMaint && TimeUntilOn > 0) {
-					y.SetTimeProgress(100, TimeUntilOn + " Until On");
+					y.SetTimeProgress((int) Math.round(100 * TimeSchedule.minsBetween(TimeSchedule.MaintTime, TimeSchedule.CurrentMilitaryTime()) / TimeSchedule.Mode1Diff), TimeUntilOn + " Until On");
 					EcoModeSegment = 1; }
 				if (TimeUntilOff < TimeUntilOn && TimeUntilOff < TimeUntilMaint && TimeUntilOff > 0) {
-					y.SetTimeProgress(100, TimeUntilOff + " Until Off");
+					y.SetTimeProgress((int) Math.round(100 * TimeSchedule.minsBetween(TimeSchedule.ServerOn, TimeSchedule.CurrentMilitaryTime()) / TimeSchedule.Mode2Diff), TimeUntilOff + " Until Off");
 					EcoModeSegment = 2; }
 				if (TimeUntilMaint < TimeUntilOn && TimeUntilMaint < TimeUntilOff && TimeUntilMaint > 0) {
-					y.SetTimeProgress(100, TimeUntilMaint + " Until Maint");
+					y.SetTimeProgress((int) Math.round(100 * TimeSchedule.minsBetween(TimeSchedule.ServerOff, TimeSchedule.CurrentMilitaryTime()) / TimeSchedule.Mode3Diff), TimeUntilMaint + " Until Maint");
 					EcoModeSegment = 3; } }
 			else y.SetTimeProgress(0, "∞ until Power Off");
 			if (EcoModeSegment == 1) {
@@ -91,6 +91,7 @@ public class ServerMain {
 				}
 			}
 			if (EcoModeSegment == 2) {
+				System.out.println("The server would be running now");
 				//server is running until server off.
 				//if server not running initialize everything.
 			}
