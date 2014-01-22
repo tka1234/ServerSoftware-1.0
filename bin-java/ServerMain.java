@@ -1,18 +1,22 @@
+import java.awt.Toolkit;
 public class ServerMain {
 	public static int EcoModeSegment = 0;
 	public static boolean TextsEnabled = false;
+	public static ServerLoad x; public static detailedLog Log;
 	public static void main(String args[]) {
-		detailedLog Log = new detailedLog();
+		Log = new detailedLog();
 		Log.pack();
 		Log.setVisible(true);
 		Log.setResizable(false);
+		Log.setLocation((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - 350, (Toolkit.getDefaultToolkit().getScreenSize().height / 2) - 150);
 		Log.writeToLog("Log called from ServerMain.");
 		
-		ServerLoad x = new ServerLoad();
+		x = new ServerLoad();
 		x.pack();
 		x.setVisible(true);
 		x.setResizable(false);
 		x.setSize(300, 300);
+		x.setLocation((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - 150, (Toolkit.getDefaultToolkit().getScreenSize().height / 2) - 150);
 		Log.writeToLog("Profiles panel created.");
 		Log.writeToLog("Waiting for a choice.");
 		
@@ -27,12 +31,14 @@ public class ServerMain {
 		y.setVisible(true);
 		y.setResizable(false);
 		y.setSize(400, 200);
+		y.setLocation((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - 200, (Toolkit.getDefaultToolkit().getScreenSize().height / 2) - 100);
 		Log.writeToLog("OSD initialized.");
 		
 		y.CurrentActivityIndef(true);
 		y.SetCAProgress(0, "Launching Server...");
+		Process proc = null;
 		try {
-			@SuppressWarnings("unused") Process proc = Runtime.getRuntime().exec("java -jar " + ServerLoad.ServerLaunchPath);
+			proc = Runtime.getRuntime().exec("java -jar " + ServerLoad.ServerLaunchPath);
 			Log.writeToLog("Server Jar launched at path " + ServerLoad.ServerLaunchPath + "."); }
 		catch (Exception e1) {Log.writeToLog("Server jar failed to launch."); }
 		
@@ -48,7 +54,9 @@ public class ServerMain {
 		double TimeUntilMaint = 0, TimeUntilOn = 0, TimeUntilOff = 0;
 	//END OF STARTUP PROCESS
 		while (true) {
-			if (OSD.ActionButtonPressed == "A") System.exit(0); //TODO make it close the server window, too
+			if (OSD.ActionButtonPressed == "A") {
+				proc.destroy(); //TODO make a 'graceful' end for the server
+				System.exit(0); }
 			if (OSD.ActionButtonPressed == "B") {
 				//TODO account for restart and changing running profile.
 				OSD.ActionButtonPressed = "";
