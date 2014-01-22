@@ -1,16 +1,16 @@
-import javax.swing.*; import javax.swing.border.Border; import java.awt.*; import java.awt.event.*; import javax.swing.event.*; import java.io.*; import java.util.*;
+import javax.swing.*; import javax.swing.border.Border; 
+import java.awt.*; import java.awt.event.*; 
+import javax.swing.event.*; 
+import java.io.*; import java.util.*;
 public class TimeSchedule extends JFrame {
 	private static final long serialVersionUID = 1L;
 	public TimeSchedule() {
-		super("Eco-Mode Scheduler");
+		super("AGS - EcoMode Scheduler");
 		JPanel controlPanel = new JPanel(new GridLayout(5, 1));
 		Border gap = BorderFactory.createEmptyBorder(5,5,5,5);
 		controlPanel.setBorder(gap);
 		try {UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); }
-		catch (ClassNotFoundException e) {e.printStackTrace(); }
-		catch (InstantiationException e) {e.printStackTrace(); }
-		catch (IllegalAccessException e) {e.printStackTrace(); }
-		catch (UnsupportedLookAndFeelException e) {e.printStackTrace(); }
+		catch (Exception e) {e.printStackTrace(); }
 		
 		JPanel Panel1 = new JPanel(new GridLayout(1, 2));
 		onTime = new JSlider(0, 2359, ServerOn);
@@ -68,7 +68,7 @@ public class TimeSchedule extends JFrame {
 		
 		setContentPane(controlPanel);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		}
+		setLocation((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - 200, (Toolkit.getDefaultToolkit().getScreenSize().height / 2) - 100); }
 	
 	private JSlider onTime, offTime, mTime;
 	private JLabel onTimeLabel, offTimeLabel, mTimeLabel, ErrorPane;
@@ -155,9 +155,7 @@ public class TimeSchedule extends JFrame {
 			ErrorPane.setText("Configuration valid. Changes have been made.");
 			saveButton.setEnabled(true);
 			enableButton.setEnabled(true);
-			enableButton.setText("Save & Apply");
-		}
-	}
+			enableButton.setText("Save & Apply"); } }
 	
 	public static int ServerOn, ServerOff, MaintTime;
 	public static int Mode1Diff, Mode2Diff, Mode3Diff;
@@ -193,13 +191,11 @@ public class TimeSchedule extends JFrame {
 		int minutes = deltatime - (hours * 100);
 		return (hours * 60) + minutes; }
 	
-	public static String TimeStamp() {return "*" + Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + ":" + Calendar.getInstance().get(Calendar.MINUTE) + "*"; }
+	public static String TimeStamp() {
+		if (Calendar.getInstance().get(Calendar.MINUTE) < 10) return "*" + Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + ":0" + Calendar.getInstance().get(Calendar.MINUTE) + "*";
+		else return "*" + Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + ":" + Calendar.getInstance().get(Calendar.MINUTE) + "*"; } 
 	public static int CurrentMilitaryTime() {return (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) * 100) + Calendar.getInstance().get(Calendar.MINUTE); }
 	public static int CurrentHour() {return Calendar.getInstance().get(Calendar.HOUR_OF_DAY); }
 	public static int CurrentMinute() {return Calendar.getInstance().get(Calendar.MINUTE); }
 	
-	public static int CurrentDate() {return (Calendar.getInstance().get(Calendar.MONTH) * 100) + Calendar.getInstance().get(Calendar.DAY_OF_MONTH); }
-	
-	public static void main(String args[]) {
-		System.out.println((int) DeltaTimes(1051, 1320));
-		System.out.println(minsBetween(1051, 1320)); } }
+	public static int CurrentDate() {return (Calendar.getInstance().get(Calendar.MONTH) * 100) + Calendar.getInstance().get(Calendar.DAY_OF_MONTH); } }
