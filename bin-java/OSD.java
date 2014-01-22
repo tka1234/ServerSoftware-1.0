@@ -46,8 +46,7 @@ public class OSD extends JFrame{
 		controlPanel.add(ConsoleOutput);
 		setContentPane(controlPanel);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		ConsoleOutput.setText("Test of Server Software");
-	}
+		ConsoleOutput.setText("Test of Server Software"); }
 	
 	private class OSDListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
@@ -74,5 +73,4 @@ public class OSD extends JFrame{
 		else {
 			EcoButton.setText("Eco-Mode Off");
 			EcoButton.setIcon(new ImageIcon("ECOOFF.png")); } }
-	public void Output(String text) {ConsoleOutput.setText(text); }
-}
+	public void Output(String text) {ConsoleOutput.setText(text); } }
