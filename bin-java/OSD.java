@@ -2,7 +2,7 @@ import javax.swing.*; import javax.swing.border.Border; import java.awt.event.*;
 public class OSD extends JFrame{
 	private static final long serialVersionUID = 1L;
 	public OSD() {
-		super("AGS Controller 1.0A");
+		super("AGS - Controller");
 		JPanel controlPanel = new JPanel(new GridLayout(4, 1));
 		Border gap = BorderFactory.createEmptyBorder(5,5,5,5);
 		controlPanel.setBorder(gap);
