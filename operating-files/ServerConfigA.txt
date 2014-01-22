@@ -1,3 +1,2 @@
 Minecraft Vanilla 1.7
-E:\Flatspace Zips\FlatSpace B1.6\Test\FlatSpace.jar
-true
+E:\TST\FlatSpace.jar
