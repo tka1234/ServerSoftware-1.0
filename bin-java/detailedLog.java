@@ -30,20 +30,7 @@ public class detailedLog extends JFrame {
 			try {out = new PrintWriter(new File(TimeSchedule.CurrentMilitaryTime() + "_" + TimeSchedule.CurrentDate() + "_Log.txt"));}
 			catch (FileNotFoundException e) {e.printStackTrace(); }
 			out.print(logbox.getText());
-			out.close();
-			
-		} }
-	public static void main(String args[]) {
-		detailedLog x = new detailedLog();
-		x.pack();
-		x.setVisible(true);
-		x.setResizable(false);
-		int potato = 0;
-		while (potato < 100) {
-			potato++;
-			x.writeToLog("Hello World!");
-		}
-		}
+			out.close(); } }
 	public void writeToLog(String text) {
 		logbox.append("\n" + TimeSchedule.TimeStamp() + " " + text);
 		logbox.setCaretPosition(logbox.getDocument().getLength()); } }
