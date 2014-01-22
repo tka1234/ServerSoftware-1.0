@@ -89,6 +89,9 @@ public class TimeSchedule extends JFrame {
 				out.println(ServerOff);
 				out.println(MaintTime);
 				out.close();
+				Mode1Diff = minsBetween(MaintTime, ServerOn);
+				Mode2Diff = minsBetween(ServerOn, ServerOff);
+				Mode3Diff = minsBetween(ServerOff, MaintTime);
 				dispose(); }
 			if (enableButton.isFocusOwner()) {
 				ServerOn = onTime.getValue();
@@ -102,6 +105,9 @@ public class TimeSchedule extends JFrame {
 				out.println(ServerOff);
 				out.println(MaintTime);
 				out.close();
+				Mode1Diff = minsBetween(MaintTime, ServerOn);
+				Mode2Diff = minsBetween(ServerOn, ServerOff);
+				Mode3Diff = minsBetween(ServerOff, MaintTime);
 				EcoMode = true;
 				dispose(); } } }
 	
@@ -154,6 +160,7 @@ public class TimeSchedule extends JFrame {
 	}
 	
 	public static int ServerOn, ServerOff, MaintTime;
+	public static int Mode1Diff, Mode2Diff, Mode3Diff;
 	public static boolean EcoMode = false;
 	
 	public static void ReadEcoTimes() {
@@ -167,7 +174,7 @@ public class TimeSchedule extends JFrame {
 		in.close(); }
 	
 	/** DeltaTimes(int start, int end): uses two Universal Time Formatting numbers and calculates the difference in Universal Time Formatting.**/
-	public static double DeltaTimes(int start, int end) {
+	public static int DeltaTimes(int start, int end) {
 		if (end == start) return 0;
 		else if (end > start) {
 			int hrsDiff = (int) (Math.floor(end / 100) - Math.floor(start / 100));
@@ -180,6 +187,11 @@ public class TimeSchedule extends JFrame {
 			if (minDiff < 0) {hrsDiff = hrsDiff - 1; minDiff = 60 + minDiff; }
 			return (hrsDiff * 100) + minDiff; }
 		else return -999; }
+	public static int minsBetween(int start, int end) {
+		int deltatime = DeltaTimes(start, end);
+		int hours = (int) Math.floor(deltatime / 100);
+		int minutes = deltatime - (hours * 100);
+		return (hours * 60) + minutes; }
 	
 	public static String TimeStamp() {return "*" + Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + ":" + Calendar.getInstance().get(Calendar.MINUTE) + "*"; }
 	public static int CurrentMilitaryTime() {return (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) * 100) + Calendar.getInstance().get(Calendar.MINUTE); }
@@ -189,6 +201,5 @@ public class TimeSchedule extends JFrame {
 	public static int CurrentDate() {return (Calendar.getInstance().get(Calendar.MONTH) * 100) + Calendar.getInstance().get(Calendar.DAY_OF_MONTH); }
 	
 	public static void main(String args[]) {
-		System.out.println((int) DeltaTimes(1420, 1320));
-	}
-}
+		System.out.println((int) DeltaTimes(1051, 1320));
+		System.out.println(minsBetween(1051, 1320)); } }
